@@ -111,6 +111,9 @@ class SingularityImagePuller(ImagePuller):
 
     def save_docker_image(self) -> None:
         """Pull down the Docker format software container image and save it in the Singularity image format."""
+        if os.path.exists(os.path.join(self.save_directory, self.get_image_name())):
+            _LOGGER.info(f"Already cached {self.req} with Singularity.")
+            return
         _LOGGER.info(f"Pulling {self.req} with Singularity...")
         cmd_pull = [
             "singularity",
