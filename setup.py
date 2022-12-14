@@ -34,7 +34,7 @@ setup(
     install_requires=[
         "requests",
         "schema-salad >= 8.2, < 9",
-        "cwltool >= 3.0.20201203173111",
+        "cwltool == 3.0.20201203173111",
         "cwl-upgrader >= 1.2",
     ],
     tests_require=["pytest<7", "cwltool"],
