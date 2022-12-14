@@ -45,7 +45,7 @@ def main(args: argparse.Namespace) -> None:
     os.makedirs(args.dir, exist_ok=True)
     global WorkflowDir
 
-    top = cwl.load_document_by_path(args.input)
+    top = cwl.load_document_by_uri(args.input)
     WorkflowDir = str(Path(args.input).parent)+"/"
 
     for req in traverse(top):
@@ -106,7 +106,7 @@ def get_process_from_step(step: cwl.WorkflowStep) -> ProcessType:
         cwl_path = step.run
         if not step.run.startswith('file://'):
               cwl_path = WorkflowDir+step.run
-        return cast(ProcessType, cwl.load_document_by_path(cwl_path))
+        return cast(ProcessType, cwl.load_document_by_uri(cwl_path))
     return cast(ProcessType, step.run)
 
 
