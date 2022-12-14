@@ -44,7 +44,7 @@ def main(args: argparse.Namespace) -> None:
     """Extract the docker reqs and download them using Singularity or docker."""
     os.makedirs(args.dir, exist_ok=True)
 
-    top = cwl.load_document_by_path(args.input)
+    top = cwl.load_document_by_uri(args.input)
 
     for req in traverse(top):
         if not req.dockerPull:
@@ -100,7 +100,7 @@ def traverse(process: ProcessType) -> Iterator[cwl.DockerRequirement]:
 def get_process_from_step(step: cwl.WorkflowStep) -> ProcessType:
     """Return the process for this step, loading it if necessary."""
     if isinstance(step.run, str):
-        return cast(ProcessType, cwl.load_document_by_path(step.run))
+        return cast(ProcessType, cwl.load_document_by_uri(step.run))
     return cast(ProcessType, step.run)
 
 
